@@ -2,16 +2,22 @@ import React, {Component} from 'react';
 import TaskAdd from "./TaskAdd";
 import TaskDisplay from "./TaskDisplay";
 
+import {firestore} from './firebase';
+
 class App extends Component {
     state = {
-        tasks: [
-            {todo: '할일 1'},
-            {todo: '할일 2'},
-            {todo: '할일 3'},
-            {todo: '할일 4'},
-        ],
+        tasks: [],
         task: ''
     };
+
+    componentDidMount() {
+        firestore.collection('tasks').get()
+            .then(docs => {
+                docs.forEach(doc => {
+                    console.log(doc.data().todo + ' : ' + doc.id);
+                });
+            });
+    }
 
     onClickHandler = (e) => {
         e.preventDefault();
