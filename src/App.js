@@ -11,22 +11,39 @@ class App extends Component {
     };
 
     componentDidMount() {
+        const tasks = [...this.state.tasks];
         firestore.collection('tasks').get()
             .then(docs => {
                 docs.forEach(doc => {
-                    console.log(doc.data().todo + ' : ' + doc.id);
+                    tasks.push({
+                        todo:doc.data().todo,
+                        id:doc.id
+                    })
                 });
+                this.setState({tasks});
             });
     }
 
     onClickHandler = (e) => {
         e.preventDefault();
-        const task = {todo: this.state.task};
+        firestore.collection('tasks').add({todo:this.state.task})
+            .then(r => {
+                const tasks = [
+                    ...this.state.tasks, {
+                    todo:this.state.task,
+                    id:r.id
+                }];
+                this.setState({
+                    tasks,
+                    task: ''
+                });
+            });
+        /*const task = {todo: this.state.task};
         const tasks = [...this.state.tasks, task];
         this.setState({
             tasks,
             task: ''
-        });
+        });*/
     };
 
     onChangeHandler = (e) => {
@@ -35,13 +52,19 @@ class App extends Component {
         });
     };
 
-    deleteHandler = (idx) => {
-        const tasks = this.state.tasks.filter(
+    deleteHandler = (id) => {
+        firestore.collection('tasks').doc(id).delete()
+            .then(() => {
+                const tasks = this.state.tasks.filter((task) => task.id !== id);
+                this.setState({tasks});
+                console.log(tasks);
+            });
+        /*const tasks = this.state.tasks.filter(
             (task, i) => i !== idx
         );
         this.setState({
            tasks
-        });
+        });*/
     };
 
     render() {
