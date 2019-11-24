@@ -1,0 +1,64 @@
+body {
+    background-color: #f9f7f7;
+}
+
+.add-task {
+    height: 40px;
+    background-color: #dbe2ef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.add-task input {
+    width: calc(100% - 100px);
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.add-task button {
+    width: 100px;
+    height: 100%;
+    border: none;
+    background-color: #112d4e;
+    color: #fff;
+    font-size: 16px;
+}
+
+.task {
+    position: relative;
+    margin: 7px 0;
+    padding: 12px 15px;
+    background-color: #3f72af;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.task p {
+    width: calc(100% - 100px);
+    min-height: 19px;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin: 0;
+    color: #fff;
+}
+
+.task button {
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    width: 50px;
+    height: 24px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #112d4e;
+    font-size: 13px;
+    color: #fff;
+}
